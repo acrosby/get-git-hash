@@ -46,4 +46,4 @@ def prepend_unique(repo, filename):
     path = os.path.abspath(filename)
     fnames = os.path.split(path)
     this = unique(repo)
-    return os.path.join([fnames[0], this+"_"+fnames[1]])
+    return os.path.join(fnames[0], this+"_"+fnames[1])
