@@ -22,22 +22,22 @@ def check(repo):
     if len(modified) > 0 or len(new) > 0:
         raise ValueError("Please commit the changes to the repository '%s'" % (repo,))
 
-@check
 def current_hash(repo):
+    check(repo)
     cmd = "cd %s && git log | head -n 1" % (repo,)
     out = subs(cmd)
     out = out.strip("commit").strip(" ").strip("\n")
     return out
 
-@check
 def current_branch(repo):
+    check(repo)
     cmd = "cd %s && git status | grep 'On branch'" % (repo,)
     out = subs(cmd)
     out = out.strip("# On branch ").strip(" ").strip("\n")
     return out
 
-@check
 def unique(repo):
+    check(repo)
     branch = current_branch(repo)
     hash = current_hash(repo)
     return branch + "-" + hash
