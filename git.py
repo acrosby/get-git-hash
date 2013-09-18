@@ -4,11 +4,23 @@ def subs(cmd):
     p = subprocess.Popen(cmd, shell=True,
                          stdout = subprocess.PIPE,
                          stderr = subprocess.PIPE)
-    if len(communicate[1])>0:
-        raise ValueError("Error using git through subprocess")
+    out = p.communicate()
+    if len(out[1])>0:
+        raise ValueError("Error using git through subprocess: %s" % (out[1],))
     else:
-        out = p.communicate()[0]
-    
+        return out[0]
+        
+
+def check(repo):
+    cmd = "cd %s && git status | grep 'modified:'" % (repo,)
+    modified = subs(cmd)
+    cmd = "cd %s && git status | grep 'new file:'" % (repo,)
+    new = subs(cmd)
+    if len(modified) > 0 or len(new) > 0:
+        raise ValueError("Please commit the changes to the repository '%s'" % (repo,))
+    else:
+        return out
+
 def current_hash(repo):
     cmd = "cd %s && git log | head -n 1" % (repo,)
     out = subs(cmd)
@@ -22,4 +34,4 @@ def current_branch(repo):
     return out
 
 def unique(repo):
-    
+    pass
