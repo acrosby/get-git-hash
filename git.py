@@ -41,3 +41,9 @@ def unique(repo):
     branch = current_branch(repo)
     hash = current_hash(repo)
     return branch + "-" + hash
+
+def prepend_unique(repo, filename):
+    path = os.path.abspath(filename)
+    fnames = os.path.split(path)
+    this = unique(repo)
+    return ps.path.join([fnames[0], this+fnames[1]])
