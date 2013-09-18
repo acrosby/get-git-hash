@@ -18,8 +18,6 @@ def check(repo):
     new = subs(cmd)
     if len(modified) > 0 or len(new) > 0:
         raise ValueError("Please commit the changes to the repository '%s'" % (repo,))
-    else:
-        return out
 
 def current_hash(repo):
     cmd = "cd %s && git log | head -n 1" % (repo,)
