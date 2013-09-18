@@ -47,3 +47,5 @@ def prepend_unique(repo, filename):
     fnames = os.path.split(path)
     this = unique(repo)
     return os.path.join(fnames[0], this+"_"+fnames[1])
+
+unique_path = prepend_unique
